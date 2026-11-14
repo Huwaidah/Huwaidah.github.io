@@ -1,54 +1,319 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
-    <title>Ini adalah web pertama saya Huwaidah</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pribadi - Ocean & Frangipani</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        p {
-            font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 25px;
-            color: green;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #e0f7fa 0%, #f0f9ff 50%, #e1f5fe 100%);
+            color: #1e3a5f;
+            overflow-x: hidden;
         }
 
-        #info {
-            color: blueviolet;
-            font-weight: bold;
-            font-size: 25px
+        /* Navbar Aesthetic */
+        .navbar-ocean {
+            background: rgba(13, 59, 102, 0.9) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 119, 182, 0.2);
+        }
+
+        /* Hero Section dengan Gambar Latar Belakang & Overlay */
+        .hero-section {
+            position: relative;
+            /* Memanggil gambar bg-laut.jpg di folder assets */
+            background: url('assets/bg-laut.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            padding: 100px 0 120px 0;
+            overflow: hidden;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 119, 182, 0.15);
+        }
+
+        /* Overlay Gelap/Biru agar Teks Tetap Jelas Terbaca */
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 75, 141, 0.75) 0%, rgba(0, 150, 199, 0.5) 100%);
+            z-index: 1;
+        }
+
+        /* Animasi Gelembung Lautan */
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: rise 12s infinite ease-in;
+        }
+        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 8s; }
+        .bubble:nth-child(2) { width: 20px; height: 20px; left: 25%; animation-duration: 6s; animation-delay: 1s; }
+        .bubble:nth-child(3) { width: 55px; height: 55px; left: 40%; animation-duration: 11s; animation-delay: 2s; }
+        .bubble:nth-child(4) { width: 30px; height: 30px; left: 55%; animation-duration: 7s; animation-delay: 0.5s; }
+        .bubble:nth-child(5) { width: 45px; height: 45px; left: 70%; animation-duration: 9s; animation-delay: 3s; }
+        .bubble:nth-child(6) { width: 25px; height: 25px; left: 85%; animation-duration: 6.5s; animation-delay: 1.5s; }
+        .bubble:nth-child(7) { width: 35px; height: 35px; left: 92%; animation-duration: 10s; animation-delay: 4s; }
+
+        @keyframes rise {
+            0% { bottom: -100px; transform: translateX(0); opacity: 0.8; }
+            50% { transform: translateX(25px); }
+            100% { bottom: 110%; transform: translateX(-25px); opacity: 0; }
+        }
+
+        /* Konten Hero di atas gelembung & overlay */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Foto Profil & Ornamen Bunga Kamboja */
+        .profile-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .profile-img {
+            width: 185px;
+            height: 185px;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 8px 25px rgba(0, 50, 90, 0.35);
+        }
+        .frangipani-badge {
+            position: absolute;
+            width: 52px;
+            height: 52px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+            animation: floatFlower 4s ease-in-out infinite;
+        }
+        .flower-top-right { top: -8px; right: -10px; }
+        .flower-bottom-left { bottom: 5px; left: -12px; width: 42px; height: 42px; animation-delay: 2s; }
+
+        @keyframes floatFlower {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(12deg); }
+        }
+
+        /* Card Glassmorphism */
+        .card-ocean {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(144, 224, 239, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 119, 182, 0.08);
+            transition: all 0.3s ease;
+        }
+        .card-ocean:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0, 119, 182, 0.16);
+        }
+
+        .text-ocean { color: #0077b6; }
+        .bg-ocean-soft { background-color: #f0f9ff; border-color: #bae6fd !important; }
+        
+        /* Footer */
+        .footer-ocean {
+            background: linear-gradient(135deg, #03045e, #0077b6);
+            color: white;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
         }
     </style>
+</head>
+<body>
 
-    <link rel="stylesheet" href="style.css">
-    </head>
+    <!-- Template SVG Bunga Kamboja -->
+    <svg style="display: none;">
+        <symbol id="kamboja" viewBox="0 0 100 100">
+            <defs>
+                <radialGradient id="petalGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffd166"/>
+                    <stop offset="45%" stop-color="#fffdf7"/>
+                    <stop offset="100%" stop-color="#ffffff"/>
+                </radialGradient>
+            </defs>
+            <g transform="translate(50,50)">
+                <path d="M0,0 C-14,-18 -14,-42 0,-46 C14,-42 14,-18 0,0 Z" fill="url(#petalGrad)" transform="rotate(0)"/>
+                <path d="M0,0 C-14,-18 -14,-42 0,-46 C14,-42 14,-18 0,0 Z" fill="url(#petalGrad)" transform="rotate(72)"/>
+                <path d="M0,0 C-14,-18 -14,-42 0,-46 C14,-42 14,-18 0,0 Z" fill="url(#petalGrad)" transform="rotate(144)"/>
+                <path d="M0,0 C-14,-18 -14,-42 0,-46 C14,-42 14,-18 0,0 Z" fill="url(#petalGrad)" transform="rotate(216)"/>
+                <path d="M0,0 C-14,-18 -14,-42 0,-46 C14,-42 14,-18 0,0 Z" fill="url(#petalGrad)" transform="rotate(288)"/>
+                <circle cx="0" cy="0" r="6" fill="#ffb703"/>
+            </g>
+        </symbol>
+    </svg>
 
-    <body>
-        <h1>Halo, Web!</h1>
-        <p>Ini adalah contoh dari paragraf. Ini paragraf ke 1</p>
-        <p style="color:brown; font-size:30px; font-family:Georgia, 'Times New Roman', Times, serif"> Ini adalah contoh dari paragraf ke 2, menggunakan css inline</p>
-        <p>Ini adalah paragraf 3 menggunakan css internal</p>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-ocean sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+                <svg width="24" height="24"><use href="#kamboja"/></svg>
+                <span>ProfilKu</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#keahlian">Keahlian</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#bahasa">Bahasa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hobi">Hobi & Minat</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <p id="info">Ini adalah komponen html dengan selector single menggunakan id elemen</p>
+    <!-- Hero / Biografi Section (Dengan BG Gambar Pantai) -->
+    <header class="hero-section text-center" id="tentang">
+        <!-- Gelembung Lautan -->
+        <div class="bubbles">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
 
-        <button id="btn">Tombol</button>
-        <p class="'catatan">Ini adalah komponen html dengan selector group menggunakan class</p>
-        <p class="'catatan">Ini adalah komponen html dengan selector group menggunakan class</p>
-        <p class="'catatan">Ini adalah komponen html dengan selector group menggunakan class</p>
+        <div class="container hero-content">
+            <div class="profile-wrapper mb-3">
+                <img src="assets/profil.jpeg" alt="Foto Profil" class="rounded-circle profile-img">
+                <!-- Hiasan Bunga Kamboja di Foto -->
+                <svg class="frangipani-badge flower-top-right"><use href="#kamboja"/></svg>
+                <svg class="frangipani-badge flower-bottom-left"><use href="#kamboja"/></svg>
+            </div>
+            
+            <h1 class="fw-bold mt-2">Mahasiswi Sistem Informasi</h1>
+            <p class="lead mt-2 mx-auto fw-light" style="max-width: 620px;">
+                Halo! Saya adalah mahasiswi yang sedang menempuh pendidikan di bidang Sistem Informasi. Memiliki ketertarikan besar dalam eksplorasi teknologi, pengembangan web, serta menuangkan kreativitas melalui tulisan dan karya visual.
+            </p>
+        </div>
+    </header>
 
-        <script>
-            const tombol = document.querySelector('#btn');
-            const catatan = document.querySelector('.catatan');
+    <!-- Konten Utama -->
+    <main class="container my-5">
+        <div class="row g-4">
+            
+            <!-- Keahlian -->
+            <div class="col-md-6" id="keahlian">
+                <div class="card card-ocean h-100 p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="h4 mb-0 text-ocean fw-bold"><i class="bi bi-code-slash"></i> Keahlian</h3>
+                        <svg width="28" height="28"><use href="#kamboja"/></svg>
+                    </div>
+                    
+                    <label class="fw-semibold mb-1">Java Programming</label>
+                    <div class="progress mb-3 rounded-pill" style="height: 20px; background-color: #e0f2fe;">
+                        <div class="progress-bar rounded-pill" role="progressbar" style="width: 50%; background-color: #0284c7;">50%</div>
+                    </div>
 
-            tombol.addEventListener('click', function () {
-                alert('Halo, kamu berhasil mengklik tombol tombol ini');
-            });
+                    <label class="fw-semibold mb-1">HTML5 & Bootstrap</label>
+                    <div class="progress mb-3 rounded-pill" style="height: 20px; background-color: #e0f2fe;">
+                        <div class="progress-bar rounded-pill" role="progressbar" style="width: 50%; background-color: #0d9488;">50%</div>
+                    </div>
 
-            catatan.addEventListener('click', function () {
-                alert('Halo, kamu berhasil mengklik catatan ini');
-            });
+                    <label class="fw-semibold mb-1">Data Analysis (Excel / Spreadsheet)</label>
+                    <div class="progress mb-3 rounded-pill" style="height: 20px; background-color: #e0f2fe;">
+                        <div class="progress-bar rounded-pill" role="progressbar" style="width: 50%; background-color: #00b4d8;">50%</div>
+                    </div>
 
+                    <div class="mt-3">
+                        <span class="badge rounded-pill px-3 py-2 me-1 mb-1" style="background-color: #0369a1;">Problem Solving</span>
+                        <span class="badge rounded-pill px-3 py-2 me-1 mb-1" style="background-color: #0077b6;">Git & GitHub</span>
+                    </div>
+                </div>
+            </div>
 
-        </script>
+            <!-- Kemampuan Bahasa -->
+            <div class="col-md-6" id="bahasa">
+                <div class="card card-ocean h-100 p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="h4 mb-0 text-ocean fw-bold"><i class="bi bi-translate"></i> Kemampuan Bahasa</h3>
+                        <svg width="28" height="28"><use href="#kamboja"/></svg>
+                    </div>
+                    <ul class="list-group list-group-flush bg-transparent">
+                        <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center py-3">
+                            <span class="fw-semibold">Bahasa Indonesia</span>
+                            <span class="badge rounded-pill px-3 py-2" style="background-color: #0077b6;">Native / Mahir</span>
+                        </li>
+                        <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center py-3">
+                            <span class="fw-semibold">Bahasa Inggris</span>
+                            <span class="badge rounded-pill px-3 py-2 text-dark" style="background-color: #ffd166;">Tingkat Kemahiran 4/10</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Hobi & Minat -->
+            <div class="col-12" id="hobi">
+                <div class="card card-ocean p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="h4 mb-0 text-ocean fw-bold"><i class="bi bi-heart"></i> Hobi & Minat</h3>
+                        <svg width="28" height="28"><use href="#kamboja"/></svg>
+                    </div>
+                    <div class="row g-3 text-center">
+                        <div class="col-md-4">
+                            <div class="p-4 border rounded-4 bg-ocean-soft h-100">
+                                <i class="bi bi-book fs-1" style="color: #0077b6;"></i>
+                                <h5 class="mt-3 fw-bold">Membaca</h5>
+                                <p class="text-muted small mb-0">Menikmati berbagai bacaan mulai dari literatur kreatif, artikel teknologi, hingga cerita fiksi menarik.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 border rounded-4 bg-ocean-soft h-100">
+                                <i class="bi bi-pencil-square fs-1" style="color: #0d9488;"></i>
+                                <h5 class="mt-3 fw-bold">Menulis</h5>
+                                <p class="text-muted small mb-0">Menuangkan ide, imajinasi, dan jalan cerita ke dalam bentuk tulisan, catatan, maupun narasi kreatif.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 border rounded-4 bg-ocean-soft h-100">
+                                <i class="bi bi-palette fs-1" style="color: #00b4d8;"></i>
+                                <h5 class="mt-3 fw-bold">Menggambar (Minat)</h5>
+                                <p class="text-muted small mb-0">Mengembangkan kreativitas visual melalui coretan sketsa dan eksplorasi seni menggambar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-ocean text-center py-4 mt-5">
+        <div class="container d-flex justify-content-center align-items-center gap-2">
+            <svg width="22" height="22"><use href="#kamboja"/></svg>
+            <p class="mb-0 small">&copy; 2026 Profil Pribadi. Dibuat dengan Bootstrap 5.</p>
+            <svg width="22" height="22"><use href="#kamboja"/></svg>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
